@@ -1,0 +1,20 @@
+export default [
+    { "firstName": "cookie",
+        "lastName": "dog",
+        "handle": "@cookiethedog",
+        "password": "123456",
+        "type": "WRITER",
+        "_id": "123" },
+    { "firstName": "max",
+        "lastName": "manatee",
+        "handle": "maxthemanatee",
+        "password": "98765",
+        "type": "SUBSCRIBER",
+        "_id": "567" },
+    { "username": "casper",
+        "lastName": "cat",
+        "handle" : "casperthecat",
+        "password": "567890",
+        "type": "WRITER",
+        "_id": "789" }
+]
