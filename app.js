@@ -1,10 +1,12 @@
 import express from 'express';
-import UserController from "./News/controllers/users/users-controller.js";
+import cors from 'cors'
 
-import CommentsController from "./News/controllers/comments/comments-controller.js";
+import UsersController from "./News/controllers/users/users-controller.js";
+
 const app = express();
+app.use(cors());
 app.use(express.json());
-app.get('/', (req, res) => {res.send('Welcome to Full Stack Development!')})
-UserController(app);
-CommentsController(app);
-app.listen(4000)
+app.get('/', (req, res) => {res.send('Welcome to the News Site!')})
+UsersController(app);
+
+app.listen(4000);

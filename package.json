@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/jesie27/news-node-server-app#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.3.5",
     "cors": "^2.8.5",
     "express": "^4.18.2"
