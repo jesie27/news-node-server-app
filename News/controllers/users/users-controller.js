@@ -31,11 +31,11 @@ function UsersController (app) {
             usr._id !== userId);
         res.sendStatus(200);
     };
-    const updateUser = (req, res) => {
+    const updateUser =  (req, res) => {
         const userId = req.params['uid'];
         const updates = req.body;
         users = users.map((usr) =>
-            usr._id === userId ?
+            usr.id === userId ?
                 {...usr, ...updates} :
                 usr
         )
