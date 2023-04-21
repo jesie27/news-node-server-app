@@ -1,7 +1,9 @@
 import people from './users.js'
+import cors from "cors";
 let users = people
 
-let currentUser = null;
+//let currentUser = null;
+
 function UsersController (app) {
     const findUsers = (req, res) => {
         const type = req.query.type
@@ -49,7 +51,7 @@ function UsersController (app) {
                 user.password === req.body.password
         );
         if (foundUser) {
-            currentUser = foundUser;
+            req.session["currentUser"] = foundUser;
             res.send(foundUser);
         }
         else {
@@ -57,11 +59,13 @@ function UsersController (app) {
         }
     };
     const logout = (req, res) => {
-        currentUser = null;
+        req.session.destroy();
+       // currentUser = null;
         res.sendStatus(204);
     };
 
     const profile = (req, res) => {
+        const currentUser =   req.session["currentUser"];
         if (currentUser) {
             res.send(currentUser);
         }
@@ -78,7 +82,7 @@ function UsersController (app) {
         }
         else {
             const newUser = {...user, id: new Date().getTime()};
-            currentUser = newUser;
+            req.session["currentUser"] = newUser;
             users.push(newUser);
             res.sendStatus(201);
         }
