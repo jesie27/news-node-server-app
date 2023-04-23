@@ -6,6 +6,6 @@ const LikesController = (app) => {
      const like = await likesDao.userLikesArticle(userId, articleId);
      res.json(like);
     }
-    app.post("/api/users/:uid/likes/:aid", createLike);
+    app.post("/api/users/:uid/likes/articles/:aid", userLikesArticle);
 }
 export default LikesController;
