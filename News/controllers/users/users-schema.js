@@ -8,7 +8,10 @@ const usersSchema = new mongoose.Schema(
         handle: String,
         email: String,
         phone: String,
-        role: String,
+        role: {type: String,
+                default: "user",
+                enum:["admin", "reader", "writer"]},
+        isAdmin: Boolean,
         bio: String,
         id: String,
         location: String,
@@ -21,5 +24,6 @@ const usersSchema = new mongoose.Schema(
     collection: "users",
 }
 );
+export default usersSchema;
 
 
