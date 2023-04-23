@@ -1,12 +1,12 @@
 import people from './users.js'
 import cors from "cors";
 let users = people
-import * as usersDao from "./users-dao"
+import * as usersDao from "./users-dao.js"
 
 //let currentUser = null;
 
 function UsersController (app) {
-    const findUsers = async (req, res) => {
+    const findAllUsers = async (req, res) => {
         // const type = req.query.type
         // if(type) {
         //     const usersOfType = users
@@ -28,9 +28,9 @@ function UsersController (app) {
         }
         res.sendStatus(404);
     };
-    const createUser = (req, res) => {
+    const createUser = async (req, res) => {
         const newUser = req.body;
-        newUser._id = (new Date()).getTime() + '';
+        newUser.id = (new Date()).getTime() + '';
         users.push(newUser);
         res.json(newUser);
     };
@@ -40,7 +40,7 @@ function UsersController (app) {
         //     usr._id !== userId);
        // res.sendStatus(200);
         const index = users.findIndex((user) => user.id === userId);
-        if(index=== -1) {
+        if (index === -1) {
             res.sendStatus(404);
         }
         users.splice(index, 1);
@@ -60,7 +60,7 @@ function UsersController (app) {
         res.send(status);
     };
 
-    const login = (req, res) => {
+    const login = async (req, res) => {
         const user = req.body;
         const foundUser = users.find(
             (user) => user.username === req.body.username &&
@@ -74,23 +74,23 @@ function UsersController (app) {
             res.sendStatus(404);
         }
     };
-    const logout = (req, res) => {
+    const logout = async (req, res) => {
         req.session.destroy();
        // currentUser = null;
-        res.sendStatus(204);
+        res.sendStatus(200);
     };
 
-    const profile = (req, res) => {
-        const currentUser =   req.session["currentUser"];
+    const profile = async (req, res) => {
+        const currentUser = req.session["currentUser"];
         if (currentUser) {
-            res.send(currentUser);
+            res.json(currentUser);
         }
         else {
             res.sendStatus(404);
         }
     };
 
-    const register = (req, res) => {
+    const register = async (req, res) => {
         const user = req.body;
         const foundUser = users.find((user) => user.username === req.body.username)
         if (foundUser) {
@@ -103,7 +103,7 @@ function UsersController (app) {
             res.sendStatus(201);
         }
     };
-    app.get('/api/users', findUsers);
+    app.get('/api/users', findAllUsers);
     app.get('/api/users/:uid', findUserById);
     app.post('/api/users', createUser);
     app.delete('/api/users/:uid', deleteUser);
