@@ -56,7 +56,6 @@ export default [
         role: "WRITER",
         id: "107",
         bio: "I'm a cat",
-
         location: "NYC",
         dateOfBirth: "08/21/1970",
         dateJoined: "06/2021",

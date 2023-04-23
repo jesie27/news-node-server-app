@@ -1,5 +1,5 @@
 import followsModel from "./follows-model.js";
-export const userFollowUser = async (follower, followed) => {
+export const userFollowsUser = async (follower, followed) => {
     return await followsModel.create({follower, followed});
 }
 export const unfollowUser = async (follower, followed) => {
