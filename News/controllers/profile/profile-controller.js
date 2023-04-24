@@ -1,6 +1,6 @@
 function ProfileController(app) {
-    app.get("/profile/:name", function(req, res) {
-        const name = req.params.name;
+    app.get("/profile/:id", function(req, res) {
+        const id = req.params.id;
         const profile = {
             name: name,
             firstName: "Nola",
