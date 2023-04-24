@@ -47,7 +47,7 @@ function UsersController (app) {
         res.json(status);
     };
     const updateUser = async (req, res) => {
-        const id = req.params.id;
+        const id = req.params.uid;
         // const updates = req.body;
         // users = users.map((usr) =>
         //     usr.id === userId ?
