@@ -1,7 +1,7 @@
 import * as followsDao from "./follows-dao.js";
 
 const FollowsController = (app) => {
-    const userFollowsUser = async(req, res) => {
+    const userFollowsUser = async (req, res) => {
         const follower = req.params.follower;
         const followed = req.params.followed;
         let follow = await followsDao.findFollowsByFollowerandFollowed(follower, followed)
@@ -27,13 +27,13 @@ const FollowsController = (app) => {
     }
     const findFollowsByFollowerId = async(req, res) => {
         const follower = req.params.follower;
-        const follows = await followsDao.findFollowsByFollowedId(follower);
+        const follows = await followsDao.findFollowsByFollowerId(follower);
         res.json(follows);
     }
-    app.post("/api/users/:/follower/:follows/:followed", userFollowsUser());
-    app.delete("/api/users/:/follower/:follows/:followed", unfollowUser());
-    app.get("/api/followed/:/followed/follows", findFollowsByFollowedId());
-    app.get("/api/follower/:/follower/follows", findFollowsByFollowerId());
+    app.post("/api/users/:/follower/follows/:followed", userFollowsUser);
+    app.delete("/api/users/:/follower/follows/:followed", unfollowUser);
+    app.get("/api/followed/:followed/follows", findFollowsByFollowedId);
+    app.get("/api/follower/:follower/follows", findFollowsByFollowerId);
 
 
 }

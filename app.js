@@ -6,8 +6,7 @@ import ArticlesController from "./News/articles/articles-controller.js";
 import session from "express-session";
 import SessionController from "./News/session-controller.js";
 import LikesController from "./News/controllers/likes/likes-controller.js";
-//import FollowsController from "./News/follows/follows-controller.js";
-import profileController from "./News/controllers/profile/profile-controller.js";
+import FollowsController from "./News/follows/follows-controller.js";
 import ProfileController from "./News/controllers/profile/profile-controller.js";
 mongoose.connect('mongodb://127.0.0.1:27017/news');
 
@@ -20,7 +19,8 @@ app.use(express.json());
 app.use(
     session({
         secret: "process.env.SECRET",
-        resave: false,
+        resave: true,
+        saveUninitialized: true,
         cookie: {secure: false}
 
     })
@@ -31,5 +31,5 @@ ArticlesController(app);
 SessionController(app);
 LikesController(app);
 ProfileController(app);
-//FollowsController(app);
+FollowsController(app);
 app.listen(4000);
