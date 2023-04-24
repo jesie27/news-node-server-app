@@ -1,6 +1,6 @@
-import people from './users.js'
+//import people from './users.js'
 import cors from "cors";
-let users = people
+//let users = people
 import * as usersDao from "./users-dao.js"
 
 //let currentUser = null;
@@ -18,12 +18,12 @@ function UsersController (app) {
         res.json(users)
     };
     const findUserById = async (req, res) => {
-        // const userId = req.params.uid;
+        //const id = req.params.id;
         // const user = users
         //     .find(u => u._id === userId);
         const user = await usersDao.findUserById(req.params.id);
         if (user) {
-            res.json(user);
+            res.send(user);
             return;
         }
         res.sendStatus(404);
@@ -34,20 +34,22 @@ function UsersController (app) {
         users.push(newUser);
         res.json(newUser);
     };
-    const deleteUser = (req, res) => {
+    const deleteUser = async(req, res) => {
         const userId = req.params.userId;
         // users = users.filter(usr =>
         //     usr._id !== userId);
        // res.sendStatus(200);
-        const index = users.findIndex((user) => user.id === userId);
-        if (index === -1) {
-            res.sendStatus(404);
-        }
-        users.splice(index, 1);
-        res.sendStatus(200);
+      //  const index = users.findIndex((user) => user.id === userId);
+      //   if (index === -1) {
+      //       res.sendStatus(404);
+      //   }
+      //   users.splice(index, 1);
+      //   res.sendStatus(200);
+        const status = await usersDao.deleteUser(id);
+        res.json(status);
     };
     const updateUser = async (req, res) => {
-        const userId = req.params.userId;
+        const id = req.params.id;
         // const updates = req.body;
         // users = users.map((usr) =>
         //     usr.id === userId ?
@@ -55,17 +57,22 @@ function UsersController (app) {
         //         usr
         // )
         // res.sendStatus(200);
-        const status = await usersDao.updateUser(userId, req.body);
-        req.session["currentUser"] = req.body;
-        res.send(status);
+        const status = await usersDao.updateUser(id, req.body);
+        //req.session["currentUser"] = req.body;
+        res.json(status);
     };
 
     const login = async (req, res) => {
         const user = req.body;
-        const foundUser = users.find(
-            (user) => user.username === req.body.username &&
-                user.password === req.body.password
-        );
+        const foundUser = await usersDao.findUserByCredentials(
+            req.body.username,
+            req.body.password
+        )
+
+        // const foundUser = users.find(
+        //     (user) => user.username === req.body.username &&
+        //         user.password === req.body.password
+        // );
         if (foundUser) {
             req.session["currentUser"] = foundUser;
             res.send(foundUser);
@@ -77,13 +84,13 @@ function UsersController (app) {
     const logout = async (req, res) => {
         req.session.destroy();
        // currentUser = null;
-        res.sendStatus(200);
+        res.sendStatus(204);
     };
 
     const profile = async (req, res) => {
         const currentUser = req.session["currentUser"];
         if (currentUser) {
-            res.json(currentUser);
+            res.send(currentUser);
         }
         else {
             res.sendStatus(404);
@@ -92,15 +99,16 @@ function UsersController (app) {
 
     const register = async (req, res) => {
         const user = req.body;
-        const foundUser = users.find((user) => user.username === req.body.username)
+       // const foundUser = users.find((user) => user.username === req.body.username)
+        const foundUser = await usersDao.createUser(user);
         if (foundUser) {
             res.sendStatus(404);
         }
         else {
             const newUser = {...user, id: new Date().getTime()};
             req.session["currentUser"] = newUser;
-            users.push(newUser);
-            res.sendStatus(201);
+            //users.push(newUser);
+            res.json(newUser);
         }
     };
     app.get('/api/users', findAllUsers);
