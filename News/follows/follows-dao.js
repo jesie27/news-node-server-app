@@ -9,8 +9,14 @@ export const findFollowsByFollowerandFollowed = async(follower, followed) => {
     return await followsModel.findOne({follower, followed});
 };
 export const findFollowsByFollowerId = async (follower) => {
-    return await followsModel.find({follower});
+    return await followsModel
+        .find({follower})
+        .populate("followed", "username")
+        .exec();
 };
 export const findFollowsByFollowedId = async(followed) => {
-    return await followsModel.find({followed});
+    return await followsModel
+        .find({followed})
+        .populate("follower", "username")
+        .exec();
 };
