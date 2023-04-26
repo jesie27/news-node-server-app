@@ -4,6 +4,6 @@ const articleSchema = new mongoose.Schema(
     name: String,
     id: String,
 },
-    {collection: "likes"}
+    {collection: "articles"}
 );
 export default articleSchema;

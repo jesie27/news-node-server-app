@@ -18,7 +18,7 @@ function UsersController (app) {
         res.send(users)
     };
     const findUserById = async (req, res) => {
-        //const id = req.params.id;
+        const id = req.params.id;
         // const user = users
         //     .find(u => u._id === userId);
         const user = await usersDao.findUserById(req.params.id);
@@ -32,7 +32,7 @@ function UsersController (app) {
         const newUser = await usersDao.createUser(req.body);
         res.json(newUser);
     };
-    const deleteUser = async(req, res) => {
+    const deleteUser = async (req, res) => {
         const id = req.params.id;
         // users = users.filter(usr =>
         //     usr._id !== userId);
@@ -47,7 +47,7 @@ function UsersController (app) {
         res.json(status);
     };
     const updateUser = async (req, res) => {
-        const id = req.params.uid;
+        const id = req.params.id;
         // const updates = req.body;
         // users = users.map((usr) =>
         //     usr.id === userId ?
@@ -55,9 +55,12 @@ function UsersController (app) {
         //         usr
         // )
         // res.sendStatus(200);
+      //  if (id === currentUser._id) {
+           // req.session["currentUser"] = {...currentUser, ...req.body};
+
+
         const status = await usersDao.updateUser(id, req.body);
-        //req.session["currentUser"] = req.body;
-        res.json(status);
+        //.json(status);
     };
 
     const login = async (req, res) => {
