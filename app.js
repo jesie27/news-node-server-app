@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(
     session({
         secret: "process.env.SECRET",
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        //saveUninitialized: true,
         cookie: {secure: false}
 
     })
