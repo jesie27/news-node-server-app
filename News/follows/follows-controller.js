@@ -13,7 +13,7 @@ const FollowsController = (app) => {
         res.json(follow);
 
     }
-    const unfollowUser = async(req, res) => {
+    const userUnfollowUser = async(req, res) => {
         const follower = req.params.follower;
         const followed = req.params.followed;
         const status = await followsDao.unfollowUser(follower, followed);
@@ -31,7 +31,7 @@ const FollowsController = (app) => {
         res.json(follows);
     }
     app.post("/api/users/:/follower/follows/:followed", userFollowsUser);
-    app.delete("/api/users/:/follower/follows/:followed", unfollowUser);
+    app.delete("/api/users/:/follower/follows/:followed", userUnfollowUser);
     app.get("/api/users/:followed/followers", findFollowsByFollowedId);
     app.get("/api/users/:follower/followees", findFollowsByFollowerId);
 
