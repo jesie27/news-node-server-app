@@ -60,6 +60,7 @@ function UsersController (app) {
 
 
         const status = await usersDao.updateUser(id, req.body);
+        res.json(status);
         //.json(status);
     };
 
