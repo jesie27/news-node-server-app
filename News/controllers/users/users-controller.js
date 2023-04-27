@@ -112,7 +112,7 @@ function UsersController (app) {
     app.get('/api/users/userId/:id', findUserById);
     app.post('/api/users', createUser);
     app.delete('/api/users/:uid', deleteUser);
-    app.put('/api/users/:uid', updateUser);
+    app.put('/api/users/:_id', updateUser);
     app.post("/api/users/login", login);
     app.post('/api/users/logout', logout);
     app.get('/api/users/profile', profile);
