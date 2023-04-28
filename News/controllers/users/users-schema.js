@@ -18,6 +18,7 @@ const usersSchema = new mongoose.Schema(
         location: String,
         dateOfBirth: String,
         dateJoined: String,
+        photo: String,
         followingCount: String,
         followersCount: String,
     },
