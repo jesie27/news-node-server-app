@@ -3,6 +3,7 @@ const articleSchema = new mongoose.Schema(
 {
     name: String,
     id: String,
+    url: String,
 },
     {collection: "articles"}
 );
